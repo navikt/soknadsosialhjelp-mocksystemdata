@@ -18,8 +18,7 @@ const barnSammeBostedsadresseJSON = require('./jsonPartialTemplates/barnSammeBos
 const barnIkkeSammeBostedsadresseJSON = require('./jsonPartialTemplates/barnIkkeSammeBostedsadresse');
 const barnMedDoedsdatoJSON = require('./jsonPartialTemplates/barnMedDoedsdato');
 const nyOrganisasjonJSON = require('./jsonPartialTemplates/organisasjon');
-const utbetalingBarnetrygd = require('./jsonPartialTemplates/utbetalingBarnetrygd');
-const utbetalingOnkelSkruePenger = require('./jsonPartialTemplates/utbetalingOnkelSkruePenger');
+const ytelse = require('./jsonPartialTemplates/ytelse');
 
 
 const adresser = adresserJSON;
@@ -240,12 +239,17 @@ module.exports = {
 		familie = familieJSON;
 	},
 
-	settUtbetalingerBarnetrygd : () => {
-		utbetaling.ytelseListe.push(utbetalingBarnetrygd)
-	},
+    settUtbetaling : (ytelsestype, periodeFom, periodeTom, belop) => {
+	    const nyYtelse = ytelse;
 
-    settUtbetalingerOnkelSkruePenger : () => {
-        utbetaling.ytelseListe.push(utbetalingOnkelSkruePenger)
+	    nyYtelse.ytelsestype.value = ytelsestype;
+	    nyYtelse.ytelsesperiode.fom = periodeFom;
+	    nyYtelse.ytelsesperiode.tom = periodeTom;
+	    nyYtelse.ytelseskomponentListe[0].ytelseskomponentbeloep = belop;
+	    nyYtelse.ytelseskomponentersum = belop;
+	    nyYtelse.ytelseNettobeloep = belop;
+
+	    utbetaling.ytelseListe.push(nyYtelse);
     },
 
     getAdresserPath : () => { return endpoints.adresser },

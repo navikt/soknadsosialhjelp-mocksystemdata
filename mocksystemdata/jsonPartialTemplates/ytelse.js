@@ -1,36 +1,29 @@
 module.exports = {
     "ytelsestype": {
-        "value": "Onkel Skrue penger",
+        "value": null,
         "kodeRef": null,
         "kodeverksRef": null
     },
     "ytelsesperiode": {
-        "fom": "2018-12-03",
-        "tom": "2018-12-05"
+        "fom": null,
+        "tom": null
     },
     "ytelseskomponentListe": [
         {
-            "ytelseskomponenttype": "Sjekk",
+            "ytelseskomponenttype": "Ordinær og utvidet",
             "satsbeloep": 0,
             "satstype": null,
             "satsantall": null,
-            "ytelseskomponentbeloep": 10000.37
-        },
-        {
-            "ytelseskomponenttype": "Pengesekk",
-            "satsbeloep": 5000,
-            "satstype": "Dag",
-            "satsantall": 10,
-            "ytelseskomponentbeloep": 50000
+            "ytelseskomponentbeloep": null
         }
     ],
-    "ytelseskomponentersum": 3880,
+    "ytelseskomponentersum": null,
     "trekkListe": [],
-    "trekksum": -500,
+    "trekksum": 0,
     "skattListe": [],
-    "skattsum": -1337,
-    "ytelseNettobeloep": 60000,
-    "bilagsnummer": "568269566",
+    "skattsum": 0,
+    "ytelseNettobeloep": null,
+    "bilagsnummer": "568269505",
     "rettighetshaver": {
         "aktoerId": "12345678910",
         "navn": "Dummy",
