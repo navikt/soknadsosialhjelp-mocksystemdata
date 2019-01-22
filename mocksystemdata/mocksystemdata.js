@@ -239,7 +239,7 @@ module.exports = {
 		familie = familieJSON;
 	},
 
-    settUtbetaling : (ytelsestype, periodeFom, periodeTom, posteringsdato, utbetalingsdato, forfallsdato, belop, totalbelop) => {
+    leggTilUtbetaling : (ytelsestype, periodeFom, periodeTom, posteringsdato, utbetalingsdato, forfallsdato, belop) => {
 	    const nyYtelse = ytelse;
 
 	    nyYtelse.ytelsestype.value = ytelsestype;
@@ -247,14 +247,12 @@ module.exports = {
 	    nyYtelse.ytelsesperiode.tom = periodeTom;
 	    nyYtelse.ytelseskomponentListe[0].ytelseskomponentbeloep = belop;
 	    nyYtelse.ytelseskomponentersum = belop;
-	    nyYtelse.ytelseNettobeloep = belop;
 
 	    utbetaling.ytelseListe.push(nyYtelse);
 	    utbetaling.posteringsdato = posteringsdato;
 	    utbetaling.utbetalingsdato = utbetalingsdato;
 	    utbetaling.forfallsdato = forfallsdato;
-
-	    utbetaling.utbetalingNettobeloep = totalbelop;
+	    utbetaling.utbetalingNettobeloep = belop;
     },
 
     getAdresserPath : () => { return endpoints.adresser },
