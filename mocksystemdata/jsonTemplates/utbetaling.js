@@ -6,7 +6,7 @@ module.exports = {
     "id": null,
     "diskresjonskode": null
   },
-  "utbetalingNettobeloep": 3880,
+  "utbetalingNettobeloep": null,
   "utbetalingsmelding": null,
   "ytelseListe": [],
   "utbetalingsdato": "2018-12-11",
