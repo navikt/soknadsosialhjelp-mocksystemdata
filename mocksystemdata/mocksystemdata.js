@@ -38,6 +38,7 @@ const VERDI = "verdi";
 const ARBEIDSFORHOLD = "arbeidsforhold";
 const ORGANISASJON = "organisasjon";
 const PERSONNAVN= "personnavn";
+const IDENT = "ident";
 
 
 
