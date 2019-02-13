@@ -59,7 +59,7 @@ module.exports = {
 	},
 
     settIdent : (ident) => {
-	    brukerprofil[PERSON][IDENT] = ident;
+	    brukerprofil[PERSON][IDENT][IDENT] = ident;
     },
 
 	settMidlertidigPostadresse : (midlertidigPostadresseEgendefinertValue) => {
