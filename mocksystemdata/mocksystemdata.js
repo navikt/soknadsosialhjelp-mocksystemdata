@@ -58,6 +58,10 @@ module.exports = {
 		familie[PERSONNAVN] = navnObject;
 	},
 
+    settIdent : (ident) => {
+	    brukerprofil[PERSON][IDENT] = ident;
+    },
+
 	settMidlertidigPostadresse : (midlertidigPostadresseEgendefinertValue) => {
 		brukerprofil[PERSON][MIDLERTIDIGPOSTADRESSE] = midlertidigPostadresseJSON;
 	},
