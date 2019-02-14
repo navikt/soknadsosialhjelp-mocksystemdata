@@ -1,5 +1,4 @@
-module.exports =
-    {
+module.exports = {
   "person": {
     "diskresjonskode": null,
     "bankkonto": null,
@@ -60,4 +59,4 @@ module.exports =
     "midlertidigPostadresse": null,
     "preferanser": null
   }
-}
+};

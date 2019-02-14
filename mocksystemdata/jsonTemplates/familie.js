@@ -1,5 +1,4 @@
-module.exports =
-    {
+module.exports = {
   "diskresjonskode": null,
   "bankkonto": null,
   "bostedsadresse": null,
@@ -45,4 +44,4 @@ module.exports =
     "endretAv": null,
     "endringstype": null
   }
-}
+};
