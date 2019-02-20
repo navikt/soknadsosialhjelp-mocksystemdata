@@ -10,13 +10,6 @@ const telefonJSON = require( "./jsonTemplates/telefon.js");
 const utbetalingJSON = require( "./jsonTemplates/utbetaling.js");
 
 const midlertidigPostadresseJSON = require("./jsonPartialTemplates/midlertidigPostadresse.js");
-const arbeidsforholdMedArbeidsgivernummerJSON = require("./jsonPartialTemplates/arbeidsforholdMedArbeidsgivernummer.js");
-const arbeidsforholdMedIdentJSON = require("./jsonPartialTemplates/arbeidsforholdMedIdent.js");
-const arbeidsforholdMedOrganisasjonJSON = require("./jsonPartialTemplates/arbeidsforholdMedOrganisasjon.js");
-const ektefelleJSON = require('./jsonPartialTemplates/ektefelle');
-const barnSammeBostedsadresseJSON = require('./jsonPartialTemplates/barnSammeBostedsadresse');
-const barnIkkeSammeBostedsadresseJSON = require('./jsonPartialTemplates/barnIkkeSammeBostedsadresse');
-const barnMedDoedsdatoJSON = require('./jsonPartialTemplates/barnMedDoedsdato');
 const nyOrganisasjonJSON = require('./jsonPartialTemplates/organisasjon');
 
 
@@ -83,9 +76,28 @@ module.exports = {
 		}
 	},
 
-	settArbeidsforholdMedArbeidsgivernummer : (startDato, sluttDato, stillingsProsent, arbeidsgiverNummer, arbeidsgiverNavn ) => {
-		const nyttArbeidsForholdMedArbeidsgivernummer = arbeidsforholdMedArbeidsgivernummerJSON;
+	settArbeidsforholdMedArbeidsgivernummer : (id, startDato, sluttDato, stillingsProsent, arbeidsgiverNummer, arbeidsgiverNavn ) => {
+		const nyttArbeidsForholdMedArbeidsgivernummer =
+            {
+                "arbeidsforholdIDnav" : 0,
+                "ansettelsesPeriode" : {
+                    "periode" : {
+                        "fom" : null,
+                        "tom" : null
+                    }
+                },
+                "arbeidsavtale" : [
+                    {
+                        "stillingsprosent" : null
+                    }
+                ],
+                "arbeidsgiver" : {
+                    "arbeidsgivernummer": null,
+                    "navn": null
+                }
+            };
 
+		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsforholdIDnav = id;
 		nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.fom = startDato;
 		nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.tom = sluttDato;
 		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsavtale[0].stillingsprosent = stillingsProsent;
@@ -96,9 +108,27 @@ module.exports = {
 		arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedArbeidsgivernummer);
 	},
 
-	settArbeidsforholdMedIdent : (startDato, sluttDato, stillingsProsent, ident ) => {
-		const nyttArbeidsForholdMedIdent = arbeidsforholdMedIdentJSON;
+	settArbeidsforholdMedIdent : (id, startDato, sluttDato, stillingsProsent, ident ) => {
+		const nyttArbeidsForholdMedIdent =
+            {
+                "arbeidsforholdIDnav" : 0,
+                "ansettelsesPeriode" : {
+                    "periode" : {
+                        "fom" : null,
+                        "tom" : null
+                    }
+                },
+                "arbeidsavtale" : [ {
+                    "stillingsprosent" : null
+                } ],
+                "arbeidsgiver" : {
+                    "ident": {
+                        "ident": null
+                    }
+                }
+            };
 
+		nyttArbeidsForholdMedIdent.arbeidsforholdIDnav = id;
 		nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.fom = startDato;
 		nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.tom = sluttDato;
 		nyttArbeidsForholdMedIdent.arbeidsavtale[0].stillingsprosent = stillingsProsent;
@@ -107,9 +137,25 @@ module.exports = {
 		arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedIdent);
 	},
 
-	settArbeidsforholdMedOrganisasjonsnummer : ( startDato, sluttDato, stillingsProsent, orgnummer ) => {
-		const nyttArbeidsForholdMedOrganisasjon = arbeidsforholdMedOrganisasjonJSON;
+	settArbeidsforholdMedOrganisasjonsnummer : (id, startDato, sluttDato, stillingsProsent, orgnummer ) => {
+		const nyttArbeidsForholdMedOrganisasjon =
+            {
+                "arbeidsforholdIDnav" : 0,
+                "ansettelsesPeriode" : {
+                    "periode" : {
+                        "fom" : null,
+                        "tom" : null
+                    }
+                },
+                "arbeidsavtale" : [ {
+                    "stillingsprosent" : null
+                } ],
+                "arbeidsgiver" : {
+                    "orgnummer" : null
+                }
+            };
 
+		nyttArbeidsForholdMedOrganisasjon.arbeidsforholdIDnav = id;
 		nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.fom = startDato;
 		nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.tom = sluttDato;
 		nyttArbeidsForholdMedOrganisasjon.arbeidsavtale[0].stillingsprosent = stillingsProsent;
@@ -119,7 +165,7 @@ module.exports = {
 	},
 
 	clearArbeidsforhold : () => {
-		arbeid = arbeidJSON;
+		arbeid[ARBEIDSFORHOLD] = [];
 	},
 
 	settOrganisasjon : ( orgnummer, navn ) => {
@@ -136,7 +182,53 @@ module.exports = {
 	},
 
 	settEktefelleMedSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
-		const ektefelle = ektefelleJSON;
+        const ektefelle =
+            {
+                "harSammeBosted": null,
+                "tilRolle": {
+                    "value": "EKTE",
+                    "kodeRef": null,
+                    "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner"
+                },
+                "tilPerson": {
+                    "diskresjonskode": null,
+                    "bankkonto": null,
+                    "bostedsadresse": null,
+                    "sivilstand": null,
+                    "statsborgerskap": null,
+                    "harFraRolleI": [],
+                    "ident": {
+                        "ident": "07127302639",
+                        "type": {
+                            "value": "FNR",
+                            "kodeRef": null,
+                            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter"
+                        }
+                    },
+                    "kjoenn": null,
+                    "personnavn": {
+                        "etternavn": "Zerg",
+                        "fornavn": "Zeratuul",
+                        "mellomnavn": null,
+                        "sammensattNavn": null,
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    },
+                    "personstatus": null,
+                    "postadresse": null,
+                    "doedsdato": null,
+                    "foedselsdato": {
+                        "foedselsdato": "1981-02-02",
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    }
+                },
+                "endringstidspunkt": null,
+                "endretAv": null,
+                "endringstype": null
+            };
 
 		ektefelle.harSammeBosted = true;
 
@@ -147,11 +239,57 @@ module.exports = {
 		ektefelle.tilPerson.foedselsdato.foedselsdato = foedselsdato;
 
 		familie.harFraRolleI.push(ektefelle);
-		familie.sivilstand.sivilstand.value = "GIFT"
+		familie.sivilstand.sivilstand.value = "GIFT";
     },
 
     settEktefelleUtenSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
-        const ektefelle = ektefelleJSON;
+        const ektefelle =
+            {
+                "harSammeBosted": null,
+                "tilRolle": {
+                    "value": "EKTE",
+                    "kodeRef": null,
+                    "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner"
+                },
+                "tilPerson": {
+                    "diskresjonskode": null,
+                    "bankkonto": null,
+                    "bostedsadresse": null,
+                    "sivilstand": null,
+                    "statsborgerskap": null,
+                    "harFraRolleI": [],
+                    "ident": {
+                        "ident": "07127302639",
+                        "type": {
+                            "value": "FNR",
+                            "kodeRef": null,
+                            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter"
+                        }
+                    },
+                    "kjoenn": null,
+                    "personnavn": {
+                        "etternavn": "Zerg",
+                        "fornavn": "Zeratuul",
+                        "mellomnavn": null,
+                        "sammensattNavn": null,
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    },
+                    "personstatus": null,
+                    "postadresse": null,
+                    "doedsdato": null,
+                    "foedselsdato": {
+                        "foedselsdato": "1981-02-02",
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    }
+                },
+                "endringstidspunkt": null,
+                "endretAv": null,
+                "endringstype": null
+            };
 
         ektefelle.harSammeBosted = false;
 
@@ -205,8 +343,48 @@ module.exports = {
         familie.sivilstand.sivilstand.value = "GIFT"
 	},
 
-	settBarnSameBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
-        const barnSammeBostedsadresse = barnSammeBostedsadresseJSON;
+	settBarnSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
+        let barnSammeBostedsadresse = {
+            "harSammeBosted": true,
+            "tilRolle": {
+                "value": "BARN",
+                "kodeRef": null,
+                "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner"
+            },
+            "tilPerson": {
+                "diskresjonskode": null,
+                "bankkonto": null,
+                "bostedsadresse": null,
+                "sivilstand": null,
+                "statsborgerskap": null,
+                "harFraRolleI": [],
+                "ident": {
+                    "ident": "03061793877",
+                    "type": {
+                        "value": "FNR",
+                        "kodeRef": null,
+                        "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter"
+                    }
+                },
+                "kjoenn": null,
+                "personnavn": {
+                    "etternavn": "Mockmann",
+                    "fornavn": "Hydra",
+                    "mellomnavn": null,
+                    "sammensattNavn": null,
+                    "endringstidspunkt": null,
+                    "endretAv": null,
+                    "endringstype": null
+                },
+                "personstatus": null,
+                "postadresse": null,
+                "doedsdato": null,
+                "foedselsdato": null
+            },
+            "endringstidspunkt": null,
+            "endretAv": null,
+            "endringstype": null
+        };
 
         barnSammeBostedsadresse.tilPerson.ident.ident = ident;
         barnSammeBostedsadresse.tilPerson.personnavn.fornavn = fornavn;
@@ -216,8 +394,49 @@ module.exports = {
         familie.harFraRolleI.push(barnSammeBostedsadresse);
     },
 
-    settBarnIkkeSameBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
-        const barnIkkeSammeBostedsadresse = barnIkkeSammeBostedsadresseJSON;
+    settBarnIkkeSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
+        const barnIkkeSammeBostedsadresse =
+            {
+                "harSammeBosted": false,
+                "tilRolle": {
+                    "value": "BARN",
+                    "kodeRef": null,
+                    "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner"
+                },
+                "tilPerson": {
+                    "diskresjonskode": null,
+                    "bankkonto": null,
+                    "bostedsadresse": null,
+                    "sivilstand": null,
+                    "statsborgerskap": null,
+                    "harFraRolleI": [],
+                    "ident": {
+                        "ident": "03061694075",
+                        "type": {
+                            "value": "FNR",
+                            "kodeRef": null,
+                            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter"
+                        }
+                    },
+                    "kjoenn": null,
+                    "personnavn": {
+                        "etternavn": "Mockmann",
+                        "fornavn": "Zergling",
+                        "mellomnavn": null,
+                        "sammensattNavn": null,
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    },
+                    "personstatus": null,
+                    "postadresse": null,
+                    "doedsdato": null,
+                    "foedselsdato": null
+                },
+                "endringstidspunkt": null,
+                "endretAv": null,
+                "endringstype": null
+            };
 
         barnIkkeSammeBostedsadresse.tilPerson.ident.ident = ident;
         barnIkkeSammeBostedsadresse.tilPerson.personnavn.fornavn = fornavn;
@@ -228,7 +447,53 @@ module.exports = {
     },
 
     settBarnMedDoedsdato : (ident, fornavn, mellomnavn, etternavn, doedsdato) => {
-        const barnMedDoedsdato = barnMedDoedsdatoJSON;
+        const barnMedDoedsdato =
+            {
+                "harSammeBosted": null,
+                "tilRolle": {
+                    "value": "BARN",
+                    "kodeRef": null,
+                    "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Familierelasjoner"
+                },
+                "tilPerson": {
+                    "diskresjonskode": null,
+                    "bankkonto": null,
+                    "bostedsadresse": null,
+                    "sivilstand": null,
+                    "statsborgerskap": null,
+                    "harFraRolleI": [],
+                    "ident": {
+                        "ident": "01010591736",
+                        "type": {
+                            "value": "FNR",
+                            "kodeRef": null,
+                            "kodeverksRef": "http://nav.no/kodeverk/Kodeverk/Personidenter"
+                        }
+                    },
+                    "kjoenn": null,
+                    "personnavn": {
+                        "etternavn": "Mockmann",
+                        "fornavn": "Roach",
+                        "mellomnavn": null,
+                        "sammensattNavn": null,
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    },
+                    "personstatus": null,
+                    "postadresse": null,
+                    "doedsdato": {
+                        "doedsdato": null,
+                        "endringstidspunkt": null,
+                        "endretAv": null,
+                        "endringstype": null
+                    },
+                    "foedselsdato": null
+                },
+                "endringstidspunkt": null,
+                "endretAv": null,
+                "endringstype": null
+            };
 
         barnMedDoedsdato.tilPerson.ident.ident = ident;
         barnMedDoedsdato.tilPerson.personnavn.fornavn = fornavn;
@@ -240,7 +505,7 @@ module.exports = {
     },
 
 	clearFamilieforhold : () => {
-		familie = familieJSON;
+	    familie.harFraRolleI = [];
 	},
 
     leggTilUtbetaling : (periodeFom, periodeTom, posteringsdato, utbetalingsdato, forfallsdato) => {
