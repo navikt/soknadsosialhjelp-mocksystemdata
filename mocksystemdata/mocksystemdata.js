@@ -37,47 +37,47 @@ const IDENT = "ident";
 
 module.exports = {
 
-	settNavn : (fornavn, mellomnavn, etternavn) => {
-		const navnObject =
-		{
-			"etternavn": etternavn,
-			"fornavn": fornavn,
-			"mellomnavn": mellomnavn,
-			"sammensattNavn": null,
-			"endringstidspunkt": null,
-			"endretAv": null,
-			"endringstype": null
-		};
+    settNavn : function settNavn(fornavn, mellomnavn, etternavn) {
+        const navnObject =
+            {
+                "etternavn": etternavn,
+                "fornavn": fornavn,
+                "mellomnavn": mellomnavn,
+                "sammensattNavn": null,
+                "endringstidspunkt": null,
+                "endretAv": null,
+                "endringstype": null
+            };
 
-		familie[PERSONNAVN] = navnObject;
-	},
-
-    settIdent : (ident) => {
-	    familie[IDENT][IDENT] = ident;
+        familie[PERSONNAVN] = navnObject;
     },
 
-	settMidlertidigPostadresse : (midlertidigPostadresseEgendefinertValue) => {
-		brukerprofil[PERSON][MIDLERTIDIGPOSTADRESSE] = midlertidigPostadresseJSON;
-	},
+    settIdent : function settIdent(ident) {
+        familie[IDENT][IDENT] = ident;
+    },
 
-	settTelefonnummer : (telefonnummer) => {
-		if (typeof telefonnummer === "undefined") {
-			throw new Error("Mangler telefonnummer (men det er lov å sette eksplisitt til null).")
-		}
-		telefon[VERDI] = telefonnummer;
-	},
+    settMidlertidigPostadresse : function settMidlertidigPostadresse(midlertidigPostadresseEgendefinertValue) {
+        brukerprofil[PERSON][MIDLERTIDIGPOSTADRESSE] = midlertidigPostadresseJSON;
+    },
 
-	settBankkontonummer : (bankkontonummer) => {
+    settTelefonnummer : function settTelefonnummer(telefonnummer) {
+        if (typeof telefonnummer === "undefined") {
+            throw new Error("Mangler telefonnummer (men det er lov å sette eksplisitt til null).")
+        }
+        telefon[VERDI] = telefonnummer;
+    },
 
-		if (bankkontonummer !== null){
-			brukerprofil[PERSON][BANKKONTO] = { "bankkonto" : { "bankkontonummer": bankkontonummer} }
-		} else {
-			brukerprofil[PERSON][BANKKONTO] = null;
-		}
-	},
+    settBankkontonummer : function settBankkontonummer(bankkontonummer) {
 
-	settArbeidsforholdMedArbeidsgivernummer : (id, startDato, sluttDato, stillingsProsent, arbeidsgiverNummer, arbeidsgiverNavn ) => {
-		const nyttArbeidsForholdMedArbeidsgivernummer =
+        if (bankkontonummer !== null){
+            brukerprofil[PERSON][BANKKONTO] = { "bankkonto" : { "bankkontonummer": bankkontonummer} }
+        } else {
+            brukerprofil[PERSON][BANKKONTO] = null;
+        }
+    },
+
+    settArbeidsforholdMedArbeidsgivernummer : function settArbeidsforholdMedArbeidsgivernummer(id, startDato, sluttDato, stillingsProsent, arbeidsgiverNummer, arbeidsgiverNavn ) {
+        const nyttArbeidsForholdMedArbeidsgivernummer =
             {
                 "arbeidsforholdIDnav" : 0,
                 "ansettelsesPeriode" : {
@@ -97,19 +97,19 @@ module.exports = {
                 }
             };
 
-		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsforholdIDnav = id;
-		nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.fom = startDato;
-		nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.tom = sluttDato;
-		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsavtale[0].stillingsprosent = stillingsProsent;
-		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsgiver.arbeidsgivernummer = arbeidsgiverNummer;
-		nyttArbeidsForholdMedArbeidsgivernummer.arbeidsgiver.navn = arbeidsgiverNavn;
+        nyttArbeidsForholdMedArbeidsgivernummer.arbeidsforholdIDnav = id;
+        nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.fom = startDato;
+        nyttArbeidsForholdMedArbeidsgivernummer.ansettelsesPeriode.periode.tom = sluttDato;
+        nyttArbeidsForholdMedArbeidsgivernummer.arbeidsavtale[0].stillingsprosent = stillingsProsent;
+        nyttArbeidsForholdMedArbeidsgivernummer.arbeidsgiver.arbeidsgivernummer = arbeidsgiverNummer;
+        nyttArbeidsForholdMedArbeidsgivernummer.arbeidsgiver.navn = arbeidsgiverNavn;
 
 
-		arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedArbeidsgivernummer);
-	},
+        arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedArbeidsgivernummer);
+    },
 
-	settArbeidsforholdMedIdent : (id, startDato, sluttDato, stillingsProsent, ident ) => {
-		const nyttArbeidsForholdMedIdent =
+    settArbeidsforholdMedIdent : function settArbeidsforholdMedIdent(id, startDato, sluttDato, stillingsProsent, ident ) {
+        const nyttArbeidsForholdMedIdent =
             {
                 "arbeidsforholdIDnav" : 0,
                 "ansettelsesPeriode" : {
@@ -128,17 +128,17 @@ module.exports = {
                 }
             };
 
-		nyttArbeidsForholdMedIdent.arbeidsforholdIDnav = id;
-		nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.fom = startDato;
-		nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.tom = sluttDato;
-		nyttArbeidsForholdMedIdent.arbeidsavtale[0].stillingsprosent = stillingsProsent;
-		nyttArbeidsForholdMedIdent.arbeidsgiver.ident.ident = ident;
+        nyttArbeidsForholdMedIdent.arbeidsforholdIDnav = id;
+        nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.fom = startDato;
+        nyttArbeidsForholdMedIdent.ansettelsesPeriode.periode.tom = sluttDato;
+        nyttArbeidsForholdMedIdent.arbeidsavtale[0].stillingsprosent = stillingsProsent;
+        nyttArbeidsForholdMedIdent.arbeidsgiver.ident.ident = ident;
 
-		arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedIdent);
-	},
+        arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedIdent);
+    },
 
-	settArbeidsforholdMedOrganisasjonsnummer : (id, startDato, sluttDato, stillingsProsent, orgnummer ) => {
-		const nyttArbeidsForholdMedOrganisasjon =
+    settArbeidsforholdMedOrganisasjonsnummer : function settArbeidsforholdMedOrganisasjonsnummer(id, startDato, sluttDato, stillingsProsent, orgnummer ) {
+        const nyttArbeidsForholdMedOrganisasjon =
             {
                 "arbeidsforholdIDnav" : 0,
                 "ansettelsesPeriode" : {
@@ -155,33 +155,33 @@ module.exports = {
                 }
             };
 
-		nyttArbeidsForholdMedOrganisasjon.arbeidsforholdIDnav = id;
-		nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.fom = startDato;
-		nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.tom = sluttDato;
-		nyttArbeidsForholdMedOrganisasjon.arbeidsavtale[0].stillingsprosent = stillingsProsent;
-		nyttArbeidsForholdMedOrganisasjon.arbeidsgiver.orgnummer = orgnummer;
+        nyttArbeidsForholdMedOrganisasjon.arbeidsforholdIDnav = id;
+        nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.fom = startDato;
+        nyttArbeidsForholdMedOrganisasjon.ansettelsesPeriode.periode.tom = sluttDato;
+        nyttArbeidsForholdMedOrganisasjon.arbeidsavtale[0].stillingsprosent = stillingsProsent;
+        nyttArbeidsForholdMedOrganisasjon.arbeidsgiver.orgnummer = orgnummer;
 
-		arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedOrganisasjon);
-	},
+        arbeid[ARBEIDSFORHOLD].push(nyttArbeidsForholdMedOrganisasjon);
+    },
 
-	clearArbeidsforhold : () => {
-		arbeid[ARBEIDSFORHOLD] = [];
-	},
+    clearArbeidsforhold : function clearArbeidsforhold() {
+        arbeid[ARBEIDSFORHOLD] = [];
+    },
 
-	settOrganisasjon : ( orgnummer, navn ) => {
-		organisasjon = organisasjonJSON;
+    settOrganisasjon : function settOrganisasjon( orgnummer, navn ) {
+        organisasjon = organisasjonJSON;
         const nyOrganisasjon = nyOrganisasjonJSON;
         nyOrganisasjon.orgnummer = orgnummer;
         nyOrganisasjon.navn.navnelinje = [ navn ];
 
         organisasjon[ORGANISASJON] = nyOrganisasjon;
-	},
+    },
 
-	clearOrganisasjon : () => {
-		organisasjon = null;
-	},
+    clearOrganisasjon : function clearOrganisasjon() {
+        organisasjon = null;
+    },
 
-	settEktefelleMedSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
+    settEktefelleMedSammeBostedsadresse : function settEktefelleMedSammeBostedsadresse(ident, fornavn, mellomnavn, etternavn, foedselsdato) {
         const ektefelle =
             {
                 "harSammeBosted": null,
@@ -230,19 +230,19 @@ module.exports = {
                 "endringstype": null
             };
 
-		ektefelle.harSammeBosted = true;
+        ektefelle.harSammeBosted = true;
 
-		ektefelle.tilPerson.ident.ident = ident;
-		ektefelle.tilPerson.personnavn.fornavn = fornavn;
-		ektefelle.tilPerson.personnavn.mellomnavn = mellomnavn;
-		ektefelle.tilPerson.personnavn.etternavn = etternavn;
-		ektefelle.tilPerson.foedselsdato.foedselsdato = foedselsdato;
+        ektefelle.tilPerson.ident.ident = ident;
+        ektefelle.tilPerson.personnavn.fornavn = fornavn;
+        ektefelle.tilPerson.personnavn.mellomnavn = mellomnavn;
+        ektefelle.tilPerson.personnavn.etternavn = etternavn;
+        ektefelle.tilPerson.foedselsdato.foedselsdato = foedselsdato;
 
-		familie.harFraRolleI.push(ektefelle);
-		familie.sivilstand.sivilstand.value = "GIFT";
+        familie.harFraRolleI.push(ektefelle);
+        familie.sivilstand.sivilstand.value = "GIFT";
     },
 
-    settEktefelleUtenSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
+    settEktefelleUtenSammeBostedsadresse : function settEktefelleUtenSammeBostedsadresse(ident, fornavn, mellomnavn, etternavn, foedselsdato) {
         const ektefelle =
             {
                 "harSammeBosted": null,
@@ -303,7 +303,7 @@ module.exports = {
         familie.sivilstand.sivilstand.value = "GIFT"
     },
 
-	settEktefelleMedKodeSeks: (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
+    settEktefelleMedKodeSeks: function settEktefelleMedKodeSeks(ident, fornavn, mellomnavn, etternavn, foedselsdato) {
         const ektefelle = ektefelleJSON;
 
         ektefelle.harSammeBosted = false;
@@ -321,9 +321,9 @@ module.exports = {
 
         familie.harFraRolleI.push(ektefelle);
         familie.sivilstand.sivilstand.value = "GIFT"
-	},
+    },
 
-	settEktefelleMedKodeSyv: (ident, fornavn, mellomnavn, etternavn, foedselsdato) => {
+    settEktefelleMedKodeSyv: function settEktefelleMedKodeSyv(ident, fornavn, mellomnavn, etternavn, foedselsdato) {
         const ektefelle = ektefelleJSON;
 
         ektefelle.harSammeBosted = false;
@@ -341,9 +341,9 @@ module.exports = {
 
         familie.harFraRolleI.push(ektefelle);
         familie.sivilstand.sivilstand.value = "GIFT"
-	},
+    },
 
-	settBarnSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
+    settBarnSammeBostedsadresse : function settBarnSammeBostedsadresse(ident, fornavn, mellomnavn, etternavn) {
         let barnSammeBostedsadresse = {
             "harSammeBosted": true,
             "tilRolle": {
@@ -394,7 +394,7 @@ module.exports = {
         familie.harFraRolleI.push(barnSammeBostedsadresse);
     },
 
-    settBarnIkkeSammeBostedsadresse : (ident, fornavn, mellomnavn, etternavn) => {
+    settBarnIkkeSammeBostedsadresse : function settBarnIkkeSammeBostedsadresse(ident, fornavn, mellomnavn, etternavn) {
         const barnIkkeSammeBostedsadresse =
             {
                 "harSammeBosted": false,
@@ -446,7 +446,7 @@ module.exports = {
         familie.harFraRolleI.push(barnIkkeSammeBostedsadresse);
     },
 
-    settBarnMedDoedsdato : (ident, fornavn, mellomnavn, etternavn, doedsdato) => {
+    settBarnMedDoedsdato : function settBarnMedDoedsdato(ident, fornavn, mellomnavn, etternavn, doedsdato) {
         const barnMedDoedsdato =
             {
                 "harSammeBosted": null,
@@ -504,39 +504,39 @@ module.exports = {
         familie.harFraRolleI.push(barnMedDoedsdato);
     },
 
-	clearFamilieforhold : () => {
-	    familie.harFraRolleI = [];
-	},
+    clearFamilieforhold : function clearFamilieforhold() {
+        familie.harFraRolleI = [];
+    },
 
-    leggTilUtbetaling : (periodeFom, periodeTom, posteringsdato, utbetalingsdato, forfallsdato) => {
+    leggTilUtbetaling : function leggTilUtbetaling(periodeFom, periodeTom, posteringsdato, utbetalingsdato, forfallsdato) {
 
-	    utbetaling.ytelseListe[0].ytelsesperiode.fom = periodeFom;
-	    utbetaling.ytelseListe[0].ytelsesperiode.tom = periodeTom;
+        utbetaling.ytelseListe[0].ytelsesperiode.fom = periodeFom;
+        utbetaling.ytelseListe[0].ytelsesperiode.tom = periodeTom;
 
         utbetaling.ytelseListe[1].ytelsesperiode.fom = periodeFom;
         utbetaling.ytelseListe[1].ytelsesperiode.tom = periodeTom;
 
 
-	    utbetaling.posteringsdato = posteringsdato;
-	    utbetaling.utbetalingsdato = utbetalingsdato;
-	    utbetaling.forfallsdato = forfallsdato;
+        utbetaling.posteringsdato = posteringsdato;
+        utbetaling.utbetalingsdato = utbetalingsdato;
+        utbetaling.forfallsdato = forfallsdato;
     },
 
-    getAdresserPath : () => { return endpoints.adresser },
-    getAdresserJson : () => { return adresser },
-    getNorgPath : () => { return endpoints.norg },
-    getNorgJson : () => { return norg },
-    getTelefonPath : () => { return endpoints.telefon },
-    getTelefonJson : () => { return telefon },
-    getBrukerprofilPath : () => { return endpoints.brukerprofil },
-    getBrukerprofilJson : () => { return brukerprofil },
-    getArbeidPath : () => { return endpoints.arbeid },
-    getArbeidJson : () => { return arbeid },
-    getOrganisasjonPath : () => { return endpoints.organisasjon },
-    getOrganisasjonJson : () => { return organisasjon },
-    getFamiliePath : () => { return endpoints.familie },
-    getFamilieJson : () => { return familie },
-    getUtbetalingPath : () => { return endpoints.utbetaling },
-    getUtbetalingJson : () => { return utbetaling }
+    getAdresserPath : function getAdresserPath() { return endpoints.adresser },
+    getAdresserJson : function getAdresserJson() { return adresser },
+    getNorgPath : function getNorgPath() { return endpoints.norg },
+    getNorgJson : function getNorgJson() { return norg },
+    getTelefonPath : function getTelefonPath() { return endpoints.telefon },
+    getTelefonJson : function getTelefonJson() { return telefon },
+    getBrukerprofilPath : function getBrukerprofilPath() { return endpoints.brukerprofil },
+    getBrukerprofilJson : function getBrukerprofilJson() { return brukerprofil },
+    getArbeidPath : function getArbeidPath() { return endpoints.arbeid },
+    getArbeidJson : function getArbeidJson() { return arbeid },
+    getOrganisasjonPath : function getOrganisasjonPath() { return endpoints.organisasjon },
+    getOrganisasjonJson : function getOrganisasjonJson() { return organisasjon },
+    getFamiliePath : function getFamiliePath() { return endpoints.familie },
+    getFamilieJson : function getFamilieJson() { return familie },
+    getUtbetalingPath : function getUtbetalingPath() { return endpoints.utbetaling },
+    getUtbetalingJson : function getUtbetalingJson() { return utbetaling }
 };
 
